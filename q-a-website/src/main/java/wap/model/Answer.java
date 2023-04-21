@@ -4,15 +4,12 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name="questions")
-public class Question {
+@Table(name="answers")
+public class Answer {
 
     @Id
-    @Column(name ="q_id")
-    private Integer q_id;
-
-    @Column(name ="topic")
-    private String topic;
+    @Column(name ="a_id")
+    private Integer a_id;
 
     @Column(name ="content")
     private String content;
@@ -24,23 +21,18 @@ public class Question {
     private Integer downvotes;
 
     @Id
+    @Column(name ="q_id")
+    private Integer q_id;
+    @Id
     @Column(name ="u_id")
     private Integer u_id;
 
-    public Integer getQ_id() {
-        return q_id;
+    public Integer getA_id() {
+        return a_id;
     }
 
-    public void setQ_id(Integer q_id) {
-        this.q_id = q_id;
-    }
-
-    public String getTopic() {
-        return topic;
-    }
-
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setA_id(Integer a_id) {
+        this.a_id = a_id;
     }
 
     public String getContent() {
@@ -67,6 +59,14 @@ public class Question {
         this.downvotes = downvotes;
     }
 
+    public Integer getQ_id() {
+        return q_id;
+    }
+
+    public void setQ_id(Integer q_id) {
+        this.q_id = q_id;
+    }
+
     public Integer getU_id() {
         return u_id;
     }
@@ -75,7 +75,7 @@ public class Question {
         this.u_id = u_id;
     }
 
-    public Question(Integer q_id, String topic, String content, Integer upvotes, Integer downvotes,Integer u_id){
+    public Answer(Integer a_id, String content, Integer upvotes, Integer downvotes, Integer q_id, Integer u_id){
 
     }
 }
