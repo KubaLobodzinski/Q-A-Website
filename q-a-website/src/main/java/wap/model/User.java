@@ -1,16 +1,18 @@
 package wap.model;
-
 import javax.persistence.*;
+import javax.persistence.*;
+import java.util.List;
+
 @Entity
 @Table(name="users")
 public class User {
 
-    @Column(name ="username")
-    private String username;
-
     @Id
     @Column(name ="u_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer u_id;
+    @Column(name ="username")
+    private String username;
 
     @Column(name ="password")
     private String password;
@@ -24,7 +26,15 @@ public class User {
     @Column(name ="company")
     private String company;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Question> questions;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Answer> answers;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Comment> comments;
+
 
     public void setId(int u_id){
         this.u_id = u_id;

@@ -15,9 +15,13 @@ public class Comment {
     @Column(name ="content")
     private String content;
 
-    @Id
-    @Column(name ="u_id")
-    private Integer u_id;
+    @ManyToOne
+    @JoinColumn(name = "u_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "a_id")
+    private Answer answer;
 
     public Integer getC_id() {
         return c_id;
@@ -36,11 +40,11 @@ public class Comment {
     }
 
     public Integer getU_id() {
-        return u_id;
+        return user.getU_id();
     }
 
-    public void setU_id(Integer u_id) {
-        this.u_id = u_id;
+    public void setU_id(User user) {
+        this.user = user;
     }
 
     public Comment(Integer c_id, String content, Integer u_id){

@@ -1,6 +1,7 @@
 package wap.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -9,6 +10,7 @@ public class Answer {
 
     @Id
     @Column(name ="a_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer a_id;
 
     @Column(name ="content")
@@ -20,12 +22,15 @@ public class Answer {
     @Column(name ="downvotes")
     private Integer downvotes;
 
-    @Id
-    @Column(name ="q_id")
-    private Integer q_id;
-    @Id
-    @Column(name ="u_id")
-    private Integer u_id;
+    @ManyToOne
+    @JoinColumn(name = "q_id")
+    private Question question;
+    @ManyToOne
+    @JoinColumn(name = "u_id")
+    private User user;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Comment> comments;
 
     public Integer getA_id() {
         return a_id;
@@ -60,19 +65,19 @@ public class Answer {
     }
 
     public Integer getQ_id() {
-        return q_id;
+        return question.getQ_id();
     }
 
-    public void setQ_id(Integer q_id) {
-        this.q_id = q_id;
+    public void setQ_id(Question question) {
+        this.question = question;
     }
 
     public Integer getU_id() {
-        return u_id;
+        return user.getU_id();
     }
 
-    public void setU_id(Integer u_id) {
-        this.u_id = u_id;
+    public void setU_id(User user) {
+        this.user = user;
     }
 
     public Answer(Integer a_id, String content, Integer upvotes, Integer downvotes, Integer q_id, Integer u_id){
