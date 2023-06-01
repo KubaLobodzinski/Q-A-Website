@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8">
+    <title>Questions</title>
+</head>
+<body>
+<h1>All Questions</h1>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Title</th>
+    </tr>
+    <tr th:each="question : ${questions}">
+        <td th:text="${question.topic}">Id</td>
+        <td th:text="${question.content}">Title</td>
+    </tr>
+</table>
+<a href="/questions/add"><button title="Add question">Add question</button></a>
+</body>
+</html>

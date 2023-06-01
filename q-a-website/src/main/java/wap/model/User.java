@@ -1,11 +1,18 @@
 package wap.model;
+import lombok.Builder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import wap.dto.Role;
+
 import javax.persistence.*;
-import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Table(name="users")
-public class User {
+@Builder
+public class User implements UserDetails {
 
     @Id
     @Column(name ="u_id")
@@ -21,7 +28,8 @@ public class User {
     private String email;
 
     @Column(name ="role")
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(name ="company")
     private String company;
@@ -35,7 +43,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
+    public User(){
 
+    }
     public void setId(int u_id){
         this.u_id = u_id;
     }
@@ -47,10 +57,34 @@ public class User {
         return username;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
     public Integer getU_id() {
         return u_id;
     }
-
     public String getPassword() {
         return password;
     }
@@ -59,7 +93,7 @@ public class User {
         return email;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
@@ -83,7 +117,7 @@ public class User {
         this.email = email;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

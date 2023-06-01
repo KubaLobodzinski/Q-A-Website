@@ -38,6 +38,9 @@ public class Question {
                 inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private List<Tag> tags;
 
+    public Question(){
+
+    }
     public Integer getQ_id() {
         return q_id;
     }
@@ -86,7 +89,7 @@ public class Question {
         this.user = user;
     }
 
-    public Question(Integer q_id, String topic, String content, Integer upvotes, Integer downvotes, User user){
+    public Question(Integer q_id, String topic, String content, Integer upvotes, Integer downvotes, Integer u_id){
 
     }
 }

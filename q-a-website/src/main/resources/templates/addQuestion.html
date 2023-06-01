@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8">
+    <title>Questions</title>
+</head>
+<body>
+<h1>Add a question</h1>
+<form th:action="@{/questions/add}" th:object="${question}" method="post">
+    <table>
+        <tr>
+            <td>Topic:</td>
+            <td><input type="text" th:field="*{topic}" /></td>
+        </tr>
+        <tr>
+            <td>Content:</td>
+            <td><input type="text" th:field="*{content}" /></td>
+        </tr>
+        <tr>
+            <td><button type="submit">Submit</button></td>
+        </tr>
+    </table>
+    </form>
+</body>
+</html>
