@@ -38,7 +38,7 @@ public class Answer {
     @JoinColumn(name = "u_id")
     private User user;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
     public Integer getA_id() {
