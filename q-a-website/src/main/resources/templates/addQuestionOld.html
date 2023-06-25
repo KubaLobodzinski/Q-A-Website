@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Questions</title>
+    <style>
+        .tag-button {
+            display: inline-block;
+            margin-right: 5px;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .tag-button.active {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<h1>Add a question</h1>
+<form th:action="@{/questions/add}" th:object="${question}" method="post">
+    <table>
+        <tr>
+            <td>Topic:</td>
+            <td><input type="text" th:field="*{topic}"/></td>
+        </tr>
+        <tr>
+            <td>Content:</td>
+            <td><input type="text" th:field="*{content}"/></td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">Submit</button>
+            </td>
+        </tr>
+    </table>
+
+    <input type="hidden" id="selectedTags" name="selectedTags"/>
+
+</form>
+<table>
+    <tr th:each="tag : ${tags}">
+        <td>
+            <button class="tag-button" th:text="${tag.name}" th:data-tag-id="${tag.id}"></button>
+        </td>
+    </tr>
+</table>
+
+<script>
+    var tagButtons = document.querySelectorAll('.tag-button');
+    tagButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            button.classList.toggle('active');
+            updateSelectedTags();
+        });
+    });
+
+    function updateSelectedTags() {
+        var selectedTags = Array.from(document.querySelectorAll('.tag-button.active'))
+            .map(function (button) {
+                return button.getAttribute('data-tag-id');
+            });
+        document.getElementById('selectedTags').value = selectedTags.join(',');
+    }
+</script>
+
+</body>
+</html>

@@ -7,22 +7,25 @@ import java.util.List;
 @Table(name="tags")
 public class Tag {
     @Id
-    @Column(name ="t_id")
+    @Column(name ="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer t_id;
+    private Integer id;
 
     @Column(name ="name")
     private String name;
 
-    @ManyToMany(mappedBy = "tags")
+    @ManyToMany(mappedBy = "tags", cascade = CascadeType.PERSIST)
     private List<Question> questions;
 
-    public Integer getT_id() {
-        return t_id;
+    public Tag() {
     }
 
-    public void setT_id(Integer t_id) {
-        this.t_id = t_id;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -36,4 +39,6 @@ public class Tag {
     public Tag(Integer t_id, String name){
 
     }
+
+
 }

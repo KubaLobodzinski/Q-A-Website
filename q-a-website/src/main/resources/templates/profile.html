@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Questions</title>
+    <title>PROFILE</title>
     <meta name="description" content="Mega giga kox fajna super stronka.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/styles.css">
@@ -12,14 +12,13 @@
 
 <body>
     <div class="header">
-
         <div>
             <nav>
                 <select onchange="window.location.href=this.value;" class="custom-select">
                     <option value="/main" default hidden></option>
                     <option value="/questions/all">Questions</option>
-                    <option th:if="${isLogged}" value="/tags/add">Add a tag</option>
-                    <option th:if="${isLogged}" value="/user/profile">Profile</option>
+                    <option value="/tags/add">Add a tag</option>
+                    <option value="/user/profile">Profile</option>
                 </select>
             </nav>
         </div>
@@ -31,8 +30,8 @@
         </div>
 
         <div class="search-cointeiner">
-            <form th:action="@{/questions/search}" method="post" id="searchForm">
-                <input type="text" name="search" placeholder="Search...">
+            <form action="questions.html" method="GET">
+                <input type="text" name="q" placeholder="Search...">
                 <button type="submit">Search</button>
             </form>
         </div>
@@ -47,40 +46,34 @@
                 <button type="submit">Log out</button>
             </form>
         </div>
-
+        
     </div>
-
     <div class="header-center-divider"></div>
-
+    
     <div class="center">
-        <h1>All Questions</h1>
-        <table style="width: 100%;">
-            <tr>
-                <th>Topic</th>
-                <th>Content</th>
-            </tr>
-            <tr th:each="question : ${questions}">
-                <td style="font-weight: bold;" class="question-link">
-                    <a th:href="@{/questions/question(questionId=${question.q_id})}">
-                        <span th:text="${question.topic}"></span>
-                    </a>
-                </td>
-                <td th:text="${question.content}" style="width: 20%;">Title</td>
-            </tr>
-        </table>
-        <div class="button-container" th:if="${isLogged}">
-            <a href="/questions/add">
-                <button>Add question</button>
-            </a>
-        </div>
+        <h1>
+            Your profile
+        </h1>
+        <form>
+            <div class="txt_profile">
+                <span></span>
+                <label>Username: <span th:text="${user.get().username}"></span></label>
+            </div>
+            <div class="txt_profile">
+                <span></span>
+                <label>Email:<span th:text="${user.get().email}"></span></label>
+            </div>
+            <div class="txt_profile">
+                <span></span>
+                <label>Company: <span th:text="${user.get().company}"></span></label>
+            </div>
+            <div>
+                <br>
+            </div>
+        </form>
     </div>
 
-    <script>
-    function navigateToQuestion(questionId) {
-        window.location.href = "/questions/question?questionId=" + questionId;
-    }
-</script>
-
+    <script src="" async defer></script>
 </body>
 
 </html>

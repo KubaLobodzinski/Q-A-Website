@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Questions</title>
+    <meta name="description" content="Mega giga kox fajna super stronka.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+
+<body>
+<div class="header">
+
+    <div>
+        <nav>
+            <select onchange="window.location.href=this.value;" class="custom-select">
+                <option value="/main" default hidden></option>
+                <option value="/questions/all">Questions</option>
+                <option th:if="${isLogged}" value="/tags/add">Add a tag</option>
+                <option value="/user/profile" th:if="${isLogged}">Profile</option>
+            </select>
+        </nav>
+    </div>
+
+    <div class="logo-cointainer">
+        <a href="/main">
+            <img src="/images/logo.png" alt="logo" style="width: 100px; height: 100px;">
+        </a>
+    </div>
+
+    <div class="search-cointeiner">
+        <form th:action="@{/questions/search}" method="post" id="searchForm">
+            <input type="text" name="search" placeholder="Search...">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <div class="login-cointeiner" th:unless="${isLogged}">
+        <form action="/auth/login" method="GET">
+            <button type="submit">Log in</button>
+        </form>
+    </div>
+    <div class="login-cointeiner" th:if="${isLogged}">
+        <form action="/auth/logout" method="POST">
+            <button type="submit">Log out</button>
+        </form>
+    </div>
+
+</div>
+
+<div class="header-center-divider"></div>
+
+<div class="center">
+    <h1 th:text="${question.get().topic}">
+    </h1>
+    <table style="width: 100%;">
+        <tr>
+            <td th:text="${question.get().content}">Title</td>
+    </table>
+    <div class="comment">
+        <h2>
+           Answers:
+        </h2>
+        <h4 th:each="answer : ${answers}" style="padding-top: 10px;">
+            <span th:text="${answer.user.username}"></span>
+            <h4 th:text="${answer.content}" style="font-weight: normal;"/>
+        </h4>
+
+        <form th:action="@{/answer/add}" th:object="${answer}" method="post" th:if="${isLogged}">
+            <textarea placeholder="Add an answer" th:field="*{content}" style="margin-top: 15px; resize: none; height: 50px; width: 40%;"></textarea>
+            <input type="hidden" name="q_id" th:value="${question.get().q_id}">
+            <input type="hidden" name="u_id" th:value="${loggedUser.get().u_id}">
+            <p></p>
+            <button type="submit">Add</button>
+        </form>
+    </div>
+</div>
+</body>
+
+</html>

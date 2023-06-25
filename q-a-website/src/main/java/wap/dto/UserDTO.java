@@ -1,5 +1,8 @@
 package wap.dto;
 
+import lombok.Builder;
+
+@Builder
 public class UserDTO {
     private String username;
 
@@ -9,7 +12,7 @@ public class UserDTO {
 
     private String email;
 
-    private String role;
+    private Role role;
 
     private String company;
 

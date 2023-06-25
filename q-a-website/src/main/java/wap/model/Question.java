@@ -1,9 +1,15 @@
 package wap.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 
+@Setter
+@Getter
 @Entity
 @Table(name="questions")
 public class Question {
@@ -25,6 +31,8 @@ public class Question {
     @Column(name ="downvotes")
     private Integer downvotes;
 
+    @Column(name = "timestamp")
+    private Date timestamp;
     @ManyToOne
     @JoinColumn(name = "u_id")
     private User user;
@@ -32,7 +40,7 @@ public class Question {
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "question_tag",
                 joinColumns =  @JoinColumn(name = "q_id"),
                 inverseJoinColumns = @JoinColumn(name = "tag_id"))
@@ -86,7 +94,10 @@ public class Question {
     }
 
     public void setU_id(Integer u_id) {
-        this.user = user;
+        if (user == null) {
+            user = new User();
+        }
+        user.setU_id(u_id);
     }
 
     public Question(Integer q_id, String topic, String content, Integer upvotes, Integer downvotes, Integer u_id){

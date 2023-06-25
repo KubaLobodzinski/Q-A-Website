@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8">
+    <title>Questions</title>
+</head>
+<body>
+<h1>Hello</h1>
+<script>
+    // Retrieve the JWT token from a server-side variable or from a cookie
+    var jwtToken = /* Code to retrieve the JWT token */;
+
+    // Set the token in a meta tag
+    var metaTag = document.createElement('meta');
+    metaTag.setAttribute('name', 'Authorization');
+    metaTag.setAttribute('content', 'Bearer ' + jwtToken);
+    document.head.appendChild(metaTag);
+
+    // Reload the page to include the Authorization header in subsequent requests
+    window.location.reload();
+</script>
+</body>
+</html>

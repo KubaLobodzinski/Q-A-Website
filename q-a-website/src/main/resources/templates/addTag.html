@@ -36,9 +36,10 @@
     <div>
         <nav>
             <select onchange=" window.location.href=this.value;" class="custom-select">
+                <option value="/main" hidden default/>
                 <option value="/questions/all">Questions</option>
-                <option value="/tags">Tags</option>
-                <option value="profile.html">Profile</option>
+                <option value="/tags/add">Add a tag</option>
+                <option value="/user/profile">Profile</option>
             </select>
         </nav>
     </div>
@@ -67,26 +68,19 @@
 <div class="header-center-divider"></div>
 
 <div class="center" style="padding: 10px;">
-    <h1>Add a question</h1>
-    <form th:action="@{/questions/add}" th:object="${question}" method="post">
+    <h1>Add a tag</h1>
+    <form th:action="@{/tags/add}" th:object="${tag}" method="post">
         <table>
             <tr style="padding: 10px;">
-                <td>Topic:</td>
-                <td><input type="text" th:field="*{topic}" size="20%" style="height: 40px; margin-bottom: 10px; font-size: 14pt; margin-top: 5px;"/></td>
-            </tr>
-            <tr style="padding: 10px;">
-                <td>Content:</td>
-                <td><textarea th:field="*{content}" style="resize: none; height: 120px; width: 100%; margin-bottom: 5px; margin-top: 5px; margin-left: 5px; font-size: 12pt; flex-direction: column;"/></td>
-                <td><input type="hidden" name="u_id" th:value="${user.get().u_id}"></td>
+                <td>Tag name:</td>
+                <td><input type="text" th:field="*{name}" size="20%" style="height: 40px; margin-bottom: 10px; font-size: 14pt; margin-top: 5px;" required/></td>
             </tr>
             <tr>
                 <td>
-                    <button type="submit" style="margin-top: 5px;">Submit</button>
+                    <button type="submit" style="border-radius: 8px; background-color: #2691d9; color: #fff; width: 70px; height: 30px;">Add</button>
                 </td>
             </tr>
         </table>
-
-        <input type="hidden" id="selectedTags" name="selectedTags"/>
 
     </form>
     <table>

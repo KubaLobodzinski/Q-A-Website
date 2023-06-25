@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Q-A Base</title>
+    <meta name="description" content="Mega giga kox fajna super stronka.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+
+<body>
+<div class="header">
+    <div>
+        <nav>
+            <select onchange="window.location.href=this.value;" class="custom-select">
+                <option value="/main" default hidden></option>
+                <option value="/questions/all">Questions</option>
+            </select>
+        </nav>
+    </div>
+
+    <div class="logo-cointainer">
+        <a href="/main">
+            <img src="/images/logo.png" alt="logo" style="width: 100px; height: 100px;">
+        </a>
+    </div>
+
+    <div class="search-cointeiner">
+        <form action="questions.html" method="GET">
+            <input type="text" name="q" placeholder="Search...">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <div class="login-cointeiner" th:unless="${isLogged}">
+        <form action="/auth/login" method="GET">
+            <button type="submit">Log in</button>
+        </form>
+    </div>
+    <div class="login-cointeiner" th:if="${isLogged}">
+        <form action="/auth/logout" method="POST">
+            <button type="submit">Log out</button>
+        </form>
+    </div>
+<div class="center">
+    <h1>
+        Join Q-A community
+    </h1>
+    <form id="registrationForm">
+        <div class="txt_field">
+            <input type="text" required id="username" name="username">
+            <span></span>
+            <label for="username">Username</label>
+        </div>
+        <div class="txt_field">
+            <input type="text" required id="email" name="email">
+            <span></span>
+            <label for="email">Email</label>
+        </div>
+        <div class="txt_field">
+            <input type="password" required id="password" name="password">
+            <span></span>
+            <label for="password">Password</label>
+        </div>
+        <div class="txt_field">
+            <input type="text" required id="company" name="company">
+            <span></span>
+            <label for="company">Company</label>
+        </div>
+        <input type="submit" value="Register">
+        <div>
+            <br>
+        </div>
+    </form>
+</div>
+
+<script>
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            var form = document.getElementById("registrationForm");
+            var formData = new FormData(form);
+            var jsonObject = {};
+
+            for (const [key, value] of formData.entries()) {
+                jsonObject[key] = value;
+            }
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/auth/registration");
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        console.log(response);
+                         window.location.href = "/auth/login";
+                    } else {
+                        console.error(xhr.responseText);
+                    }
+                }
+            };
+            xhr.send(JSON.stringify(jsonObject));
+        });
+    </script>
+</body>
+</html>
+
+</html>

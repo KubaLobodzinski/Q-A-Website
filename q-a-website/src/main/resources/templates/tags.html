@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tags</title>
+    <meta name="description" content="Mega giga kox fajna super stronka.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type=png href="logo.png">
+</head>
+
+<body>
+    <div class="header">
+
+        <div>
+            <nav>
+                <select onchange=" window.location.href=this.value;" class="custom-select">
+                    <option value="questions.html">Questions</option>
+                    <option value="tags.html">Tags</option>
+                    <option value="profile.html">Profile</option>
+                </select>
+            </nav>
+        </div>
+
+        <div class="logo-cointainer">
+            <a href="main.html">
+                <img src="logo.png" ,alt="logo" style="width: 100px; height: 100px;">
+            </a>
+        </div>
+
+        <div class="search-cointeiner">
+            <form action="questions.html" method="GET">
+                <input type="text" name="q" placeholder="Search...">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <div class="login-cointeiner">
+            <form action="q-a-base.html" method="GET">
+                <button type="submit">Log in</button>
+            </form>
+        </div>
+
+    </div>
+
+    <div class="header-center-divider"></div>
+
+    <div class="center">
+        <h1>
+            TAGS
+        </h1>
+        <ul style="list-style: square">
+            <form id="checkboxForm" action="questions.html" method="GET">
+                <label>
+                    <input type="checkbox" name="tag1" value="medicine">
+                    Medicine
+                </label>
+                <br>
+                <label>
+                    <input type="checkbox" name="tag2" value="technology">
+                    Technology
+                </label>
+                <br>
+                <label>
+                    <input type="checkbox" name="tag3" value="house">
+                    House
+                </label>
+                <br>
+                <label>
+                    <input type="checkbox" name="tag4" value="music">
+                    Music
+                </label>
+                <br>
+                <label>
+                    <input type="checkbox" name="tag5" value="book">
+                    Book
+                </label>
+                <br>
+                <label>
+                    <input type="checkbox" name="tag6" value="food">
+                    Food
+                </label>
+                <br>
+                <button type="submit">Submit</button>
+            </form>
+        </ul>
+    </div>
+    
+</body>
+
+</html>

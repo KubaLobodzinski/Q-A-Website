@@ -1,5 +1,8 @@
 package wap.model;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,7 +14,10 @@ import java.util.List;
 
 @Entity
 @Table(name="users")
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
+@Getter
 public class User implements UserDetails {
 
     @Id
@@ -43,14 +49,8 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
-    public User(){
-
-    }
     public void setId(int u_id){
         this.u_id = u_id;
-    }
-    public long getId(){
-        return u_id;
     }
 
     public String getUsername() {
@@ -123,8 +123,5 @@ public class User implements UserDetails {
 
     public void setCompany(String company) {
         this.company = company;
-    }
-    public User(String username, Integer u_id,String password, String email, String role, String company){
-
     }
 }

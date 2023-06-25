@@ -1,13 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Questions</title>
+    <title>Q-A Base</title>
     <meta name="description" content="Mega giga kox fajna super stronka.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="/styles.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        .tag-button {
+            display: inline-block;
+            margin-right: 5px;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .tag-button.active {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
 </head>
 
 <body>
@@ -49,37 +67,47 @@
         </div>
 
     </div>
-
     <div class="header-center-divider"></div>
-
-    <div class="center">
-        <h1>All Questions</h1>
+<div>
+    <div class="tag_cointeiner">
+        <h1>
+            TAGS
+        </h1>
+        <form action="/questions/search/tag" method="post" id="tagForm">
+            <table>
+                <tr th:each="tag : ${tags}">
+                    <td>
+                        <input type="hidden" name="tagId" th:value="${tag.id}">
+                        <button class="tag-button" th:text="${tag.name}" type="button" onclick="submitForm(this)"></button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <script>
+        function submitForm(button) {
+            var form = button.closest('form');
+            var tagId = button.parentNode.querySelector('input[name="tagId"]').value;
+            form.action = '/questions/search/tag?tagId=' + encodeURIComponent(tagId);
+            form.submit();
+        }
+    </script>
+    <div class="questions_cointeiner">
+        <div>
+            <h1>Recent questions:</h1>
+        </div>
         <table style="width: 100%;">
             <tr>
                 <th>Topic</th>
                 <th>Content</th>
             </tr>
             <tr th:each="question : ${questions}">
-                <td style="font-weight: bold;" class="question-link">
-                    <a th:href="@{/questions/question(questionId=${question.q_id})}">
-                        <span th:text="${question.topic}"></span>
-                    </a>
-                </td>
-                <td th:text="${question.content}" style="width: 20%;">Title</td>
+                <td style="font-weight: bold;" th:text="${question.topic}">Id</td>
+                <td th:text="${question.content}">Title</td>
             </tr>
         </table>
-        <div class="button-container" th:if="${isLogged}">
-            <a href="/questions/add">
-                <button>Add question</button>
-            </a>
-        </div>
     </div>
-
-    <script>
-    function navigateToQuestion(questionId) {
-        window.location.href = "/questions/question?questionId=" + questionId;
-    }
-</script>
+</div>
 
 </body>
 
